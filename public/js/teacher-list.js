@@ -5,9 +5,33 @@ define(['jquery','template'], function ($, template) {
         url:'/api/teacher',
         dataType:'json',
         success: function (data) {
-            //½âÎöÊı¾İ£¬äÖÈ¾Ò³Ãæ
+            //è§£ææ•°æ®ï¼Œæ¸²æŸ“é¡µé¢
             var html=template('teacherTpl',{list:data.result});
             $('#teacherInfo').html(html);
+
+            //å¯ç”¨æ³¨é”€åŠŸèƒ½
+            $('.eod').click(function () {
+                var that=this;
+                var td=$(this).closest('td');
+                var tcId=td.attr('data-tcId');
+                var status=td.attr('data-status');
+                $.ajax({
+                    type:'post',
+                    url:'/api/teacher/handle',
+                    data:{tc_id:tcId,tc_status:status},
+                    dataType:'json',
+                    success: function (data) {
+                        if(data.code==200){
+                            td.attr('data-status',data.result.tc_status);
+                            if(data.result.tc_status ==0){
+                                $(that).text('æ³¨é”€');
+                            }else{
+                                $(that).text('å¯ç”¨');
+                            }
+                        }
+                    }
+                })
+            })
         }
     })
 })
