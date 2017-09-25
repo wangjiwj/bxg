@@ -1,5 +1,7 @@
-define(['jquery','template','bootstrap'], function ($, template) {
-
+define(['jquery','template','util','bootstrap'], function ($, template,util) {
+    //设置导航菜单选中
+    util.setMenu(location.pathname);
+    //调用接口获取所有讲师的数据
     $.ajax({
         type:'get',
         url:'/api/teacher',
