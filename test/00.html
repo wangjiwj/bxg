@@ -83,9 +83,9 @@
                         <select name="cs_tc_id" class="form-control input-sm">
                             <option value="">请选择讲师...</option>
                             {{if teacher}}
-                                {{each teacher}}
-                                <option {{if cs_tc_id==$value.tc_id}}selected{{/if}} value="{{$value.tc_id}}">{{$value.tc_name}}</option>
-                                {{/each}}
+                            {{each teacher}}
+                            <option {{if cs_tc_id==$value.tc_id}}selected{{/if}} value="{{$value.tc_id}}">{{$value.tc_name}}</option>
+                            {{/each}}
                             {{/if}}
                         </select>
                     </div>
@@ -96,17 +96,17 @@
                         <select id="firstType" class="form-control input-sm">
                             <option value="">请选择一级分类...</option>
                             {{if category}}
-                                {{each category.top}}
-                                <option {{if cs_cg_pid==$value.cg_id}}selected{{/if}} value="{{$value.cg_id}}">{{$value.cg_name}}</option>
-                                {{/each}}
+                            {{each category.top}}
+                            <option {{if cs_cg_pid==$value.cg_id}}selected{{/if}} value="{{$value.cg_id}}">{{$value.cg_name}}</option>
+                            {{/each}}
                             {{/if}}
                         </select>
                         <select id="secondType" name="cs_cg_id" class="form-control input-sm">
                             <option value="">请选择二级分类...</option>
                             {{if category}}
-                                {{each category.childs}}
-                                <option {{if cs_cg_id==$value.cg_id}}selected{{/if}} value="{{$value.cg_id}}">{{$value.cg_name}}</option>
-                                {{/each}}
+                            {{each category.childs}}
+                            <option {{if cs_cg_id==$value.cg_id}}selected{{/if}} value="{{$value.cg_id}}">{{$value.cg_name}}</option>
+                            {{/each}}
                             {{/if}}
                         </select>
                     </div>

@@ -1,11 +1,11 @@
 define(['jquery','template','util','ckeditor','validate','form'],function($,template,util,CKEDITOR){
-    // è®¾ç½®å¯¼èˆªèœå•é€‰ä¸­
+    // ÉèÖÃµ¼º½²Ëµ¥Ñ¡ÖĞ
     util.setMenu('/course/add');
-    // è·å–è¯¾ç¨‹ID
+    // »ñÈ¡¿Î³ÌID
     var csId = util.qs('cs_id');
-    // è·å–æ“ä½œæ ‡å¿—ä½
+    // »ñÈ¡²Ù×÷±êÖ¾Î»
     var flag = util.qs('flag');
-    // æ ¹æ®è¯¾ç¨‹IDæŸ¥è¯¢è¯¾ç¨‹ç›¸å…³ä¿¡æ¯
+    // ¸ù¾İ¿Î³ÌID²éÑ¯¿Î³ÌÏà¹ØĞÅÏ¢
     $.ajax({
         type : 'get',
         url : '/api/course/basic',
@@ -13,51 +13,47 @@ define(['jquery','template','util','ckeditor','validate','form'],function($,temp
         dataType : 'json',
         success : function(data){
             if(flag){
-                data.result.operate = 'è¯¾ç¨‹ç¼–è¾‘';
+                data.result.operate = '¿Î³Ì±à¼­';
             }else{
-                data.result.operate = 'è¯¾ç¨‹æ·»åŠ ';
+                data.result.operate = '¿Î³ÌÌí¼Ó';
             }
             var html = template('basicTpl',data.result);
             $('#basicInfo').html(html);
 
 
-            // å¤„ç†äºŒçº§åˆ†ç±»çš„ä¸‹æ‹‰è”åŠ¨
-            $("#firstType").change(function () {
-                var pid=$(this).val();
-                //æ ¹æ®ä¸€çº§æ•°æ®çš„idæŸ¥è¯¢äºŒçº§åˆ†ç±»çš„æ•°æ®
+            // ´¦Àí¶ş¼¶·ÖÀàµÄÏÂÀ­Áª¶¯
+            $('#firstType').change(function(){
+                var pid = $(this).val();
+                // ¸ù¾İÒ»¼¶·ÖÀàµÄID²éÑ¯¶ş¼¶·ÖÀàµÄÊı¾İ
                 $.ajax({
-                    type:'get',
-                    url:'/api/category/child',
-                    data:{cg_id:pid},
-                    dataType:'json',
-                    success: function (data) {
-                        //æ‹¼æ¥äºŒçº§åˆ†ç±»çš„ä¸‹æ‹‰é€‰é¡¹
-                        var tpl=' <option value="">è¯·é€‰æ‹©äºŒçº§åˆ†ç±»...</option> {{each list}} <option value="{{$value.cg_id}}">{{$value.cg_name}}</option>{{/each}}';
-                        var html=template.render(tpl,{list:data.result});
+                    type : 'get',
+                    url : '/api/category/child',
+                    data : {cg_id : pid},
+                    dataType : 'json',
+                    success : function(data){
+                        // Æ´½Ó¶ş¼¶·ÖÀàµÄÏÂÀ­Ñ¡Ïî
+                        var tpl = '<option value="">ÇëÑ¡Ôñ¶ş¼¶·ÖÀà...</option>{{each list}}<option value="{{$value.cg_id}}">{{$value.cg_name}}</option>{{/each}}';
+                        var html = template.render(tpl,{list : data.result});
                         $('#secondType').html(html);
                     }
-                })
-            })
-
-            // å¤„ç†å¯Œæ–‡æœ¬
-           CKEDITOR.replace('editor',{
-               toolbarGroups:[
-                   { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                   { name: 'colors', groups: [ 'colors' ] },
-               ]
-           });
-
-
-
-            // å¤„ç†è¡¨å•æäº¤
+                });
+            });
+            // ´¦Àí¸»ÎÄ±¾
+            CKEDITOR.replace('editor',{
+                toolbarGroups : [
+                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] }
+                ]
+            });
+            // ´¦Àí±íµ¥Ìá½»
             $('#basicForm').validate({
                 sendForm : false,
                 valid : function(){
-                    // å¤„ç†å¯Œæ–‡æœ¬å†…å®¹åŒæ­¥
+                    // ´¦Àí¸»ÎÄ±¾ÄÚÈİÍ¬²½
                     for(var instance in CKEDITOR.instances){
                         CKEDITOR.instances[instance].updateElement();
                     }
-                    // æäº¤è¡¨å•
+                    // Ìá½»±íµ¥
                     $(this).ajaxSubmit({
                         type : 'post',
                         url : '/api/course/update/basic',
