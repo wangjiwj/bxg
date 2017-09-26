@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+//    function Person(){} ;
+//    var p1=new Person();
+//    var b=Person.__proto__;
+//    console.log(p1.constructor===undefined)
+
+//    function test(){
+//        if(arguments.length===2){
+//            test()
+//        }
+//    }
+//    test();
+
+
+//    console.log(Array instanceof Array)
+
+//    var x = 1, y = z = 0;
+//    function add(n) {
+//
+//        return n = n + 1;
+//
+//    }
+//    y = add(x);//4
+//    z = add(x);//3
+//    console.log(y)
+//    function add(n) {
+//        return n = n + 3;
+//    }
+//    console.log('x'+ x + 'y'+ y + 'z'+ z);
+
+//    var length = 10;
+//    function fn() {
+//        console.log(this.length);
+//    }
+//
+//    var obj = {
+//        length: 5,
+//        method: function (f) {
+//            f();
+//            arguments[0]();
+//            arguments[0].call(this);
+//        }
+//    }
+//
+//    obj.method(fn);
+function fn(a) {
+    console.log(a);
+
+    var a = 2;
+
+    console.log(a);
+
+}
+
+fn();
+
+fn(200);
+
+</script>
+</body>
+</html>
